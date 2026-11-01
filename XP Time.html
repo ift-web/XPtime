@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>XP Time</title><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="XP Time"><meta name="theme-color" content="#6B8F5A">
+<style>
+:root{--bg:#FBF6F1;--card:#fff;--tx:#2b2b2b;--sub:#8a8580;--g:#6B8F5A;--ln:#0000000f;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1c1e;--card:#2c2c2e;--tx:#f2f2f2;--sub:#9a9a9f;--ln:#ffffff14;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c1c1e;--card:#2c2c2e;--tx:#f2f2f2;--sub:#9a9a9f;--ln:#ffffff14;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 -apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;user-select:none;-webkit-user-select:none}
+img{user-select:none;-webkit-user-drag:none;pointer-events:none}
+.imgbox{position:relative}.imgbox::after{content:"";position:absolute;inset:0;background:transparent}
+input,textarea{user-select:text;-webkit-user-select:text}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+#app{max-width:480px;margin:0 auto;padding:16px 16px 150px}
+.sub,small{color:var(--sub)}small{display:block;font-size:12px}.c{text-align:center}
+h1{font-size:18px;margin:0 0 4px;text-align:center}
+.card{background:var(--card);border-radius:16px;padding:6px 14px;margin-bottom:12px}
+.pad{padding:14px}
+.hello{display:flex;gap:10px;align-items:center;margin-bottom:10px}.hello b{font-size:18px}
+.ring{position:relative;width:180px;height:180px;margin:14px auto}
+.ring svg{transform:rotate(-90deg)}.ring .t{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ring big{font-size:44px;font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.tile{--c:#6B8F5A;display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:16px;background:color-mix(in srgb,var(--c) 14%,transparent)}
+.tile b{color:var(--c);font-size:14px}.plus{font-size:22px;color:var(--c);opacity:.7}
+.dots{display:flex;justify-content:space-between;margin-top:8px}.dots div{text-align:center;font-size:11px;color:var(--sub);width:30px}
+.dot{display:block;width:22px;height:22px;border-radius:50%;border:2px solid #9993;margin:0 auto 4px}.dot.on{background:var(--g);border-color:var(--g)}
+.fab{position:fixed;left:16px;right:16px;max-width:448px;margin:0 auto;bottom:calc(64px + env(safe-area-inset-bottom,0px));background:var(--g);color:#fff;padding:14px;border-radius:99px;font-weight:600;text-align:center}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--ln);padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;font-size:11px;color:var(--sub);display:grid;gap:2px;justify-items:center}nav button span{font-size:20px}nav .on{color:var(--g)}
+.bars{display:flex;gap:8px;align-items:flex-end;height:130px;margin:8px 0}.bars div{flex:1;text-align:center;font-size:11px;color:var(--sub);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.bars i{display:block;background:var(--g);opacity:.75;border-radius:5px 5px 0 0;min-height:3px}
+.wk{display:flex;justify-content:space-between;align-items:center;font-weight:600;margin-bottom:6px}.wk button{font-size:20px;padding:4px 12px}
+.donut{display:flex;gap:16px;align-items:center;margin:12px 0}
+.dn{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;flex:none}.dn div{width:76px;height:76px;border-radius:50%;background:var(--bg);display:grid;place-content:center;text-align:center;font-size:11px;color:var(--sub)}.dn b{font-size:20px;color:var(--tx)}
+.lg{font-size:12px;line-height:1.9}.lg i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.tip{background:#E0A45824;border-radius:16px;padding:14px;font-size:14px;white-space:pre-line}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:10px 0}
+.chip{--c:#6B8F5A;padding:8px 14px;border-radius:12px;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);font-size:14px;font-weight:500;white-space:nowrap}.chip.on{background:var(--c);color:#fff}
+.gh{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin:12px 4px 6px}
+.row{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--ln)}.row:last-child{border:0}.row>div{flex:1}.row b{font-size:14px}
+.ic{--c:#6B8F5A;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 15%,transparent)}
+input,textarea,select{width:100%;font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:10px}
+.sheet{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;z-index:20}.sheet.show{display:flex}
+.panel{background:var(--bg);width:100%;max-width:480px;margin:0 auto;border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:90%;overflow:auto}
+.panel h3{margin:4px 0 12px;text-align:center}.panel h4{margin:14px 0 8px;font-size:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.g2 .chip,.g3 .chip{text-align:center}
+.btn{display:block;width:100%;padding:14px;border-radius:14px;margin-top:10px;font-weight:600;text-align:center;border:1.5px solid var(--g);color:var(--g)}.btn.p{background:var(--g);color:#fff}.btn.d{border-color:#d9534f;color:#d9534f}
+#timer{position:fixed;inset:0;background:var(--bg);z-index:30;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px}#timer.show{display:flex}
+#timer .big{font-size:56px;font-weight:700;font-variant-numeric:tabular-nums}
+.pp{width:90px;height:90px;border-radius:50%;background:var(--g);color:#fff;font-size:30px}.rb{width:56px;height:56px;border-radius:50%;background:var(--card);font-size:20px}
+.set{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--ln)}.set:last-child{border:0}
+.seg{display:flex;background:var(--ln);border-radius:10px;padding:2px}.seg button{padding:6px 12px;border-radius:8px;font-size:13px}.seg .on{background:var(--g);color:#fff}
+#toast{position:fixed;left:50%;bottom:130px;transform:translateX(-50%);background:#333;color:#fff;padding:8px 16px;border-radius:99px;font-size:14px;opacity:0;transition:.3s;z-index:50;pointer-events:none}#toast.show{opacity:1;pointer-events:auto}#toast button{color:#9fd18a;margin-left:12px;font-weight:600}
+textarea{height:200px;font-size:12px;font-family:ui-monospace,monospace}
+.x{font-size:13px;padding:4px 8px;opacity:.7;color:var(--sub)}.cg{display:flex;justify-content:space-between;align-items:center;padding:10px 0 4px;font-weight:600;font-size:14px;cursor:pointer;border-bottom:1px solid var(--ln)}.sw{display:flex;gap:12px;margin:12px 0}.sw button{width:30px;height:30px;border-radius:50%;border:3px solid transparent}.sw .on{border-color:var(--tx)}.x:disabled{opacity:.2}
+.pb{height:5px;border-radius:3px;background:#9993;margin-top:6px;overflow:hidden}.pb i{display:block;height:100%;background:var(--c)}
+.mg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.hm{aspect-ratio:1;border-radius:8px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px}.hm small{font-size:9px}
+.yg{display:grid;grid-template-rows:repeat(7,11px);grid-auto-flow:column;grid-auto-columns:11px;gap:3px;overflow-x:auto;padding-bottom:6px}.hy{width:11px;height:11px;border-radius:3px;background:var(--ln)}
+</style>
+</head>
+<body>
+<div id="app"><div id="main"></div></div>
+<button class="fab" id="fab" onclick="openQuick()">＋ 快速紀錄</button>
+<nav id="nav"></nav>
+<div class="sheet" id="sheet" onclick="if(event.target===this)closeSheet()"><div class="panel" id="panel"></div></div>
+<div id="timer"></div>
+<div id="toast"></div>
+<script>
+let CATS={reading:{t:'閱讀',i:'📖',c:'#6B8F5A'},learning:{t:'學習',i:'🎓',c:'#E0A458'},exercise:{t:'運動',i:'💪',c:'#D9777A'},create:{t:'創作',i:'✏️',c:'#9B7FC9'}};
+let K=Object.keys(CATS); const DN='日一二三四五六';
+const mem={}, st={get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]??null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+const load=(k,d)=>{try{return JSON.parse(st.get(k))??d}catch(e){return d}};
+let recs=load('xp_recs',[]), cfg=Object.assign({goal:120,theme:'light'},load('xp_cfg',{}));
+const BASE=['reading','learning','exercise','create'], custom=()=>CATS;
+{const sc=load('xp_cats',null);if(sc&&Object.keys(sc).length)CATS=sc;K=Object.keys(CATS)}
+let tab='home', off=0, lf=null, lq='', q={}, ed={}, T=null, cl={}, cf='', nn='', ni='', nc='#5B9BD5', eid='', ng=0, sv='week', moff=0, yoff=0;
+const save=()=>{st.set('xp_recs',JSON.stringify(recs));st.set('xp_cfg',JSON.stringify(cfg))};
+const $=id=>document.getElementById(id), p2=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+d.getMonth()+'-'+d.getDate(), sod=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate());
+const sum=(a,c)=>a.filter(r=>!c||r.category===c).reduce((s,r)=>s+r.durationMin,0);
+const esc=s=>(s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const fmtD=d=>d.toLocaleDateString('zh-TW',{month:'long',day:'numeric',weekday:'long'});
+const fmtT=d=>p2(d.getHours())+':'+p2(d.getMinutes());
+let tt;const toast=(m,fn)=>{const t=$('toast');t.textContent=m;if(fn){const b=document.createElement('button');b.textContent='復原';b.onclick=()=>{fn();t.className=''};t.append(b)}t.className='show';clearTimeout(tt);tt=setTimeout(()=>t.className='',fn?5000:1800)};
+function delRecs(a,msg){const s=new Set(a.map(r=>r.id));recs=recs.filter(r=>!s.has(r.id));save();render();toast(msg||'已刪除',()=>{recs.push(...a);save();render()})}
+const delRec=id=>delRecs(recs.filter(r=>r.id===id));
+const delDay=dk=>delRecs(recs.filter(r=>ymd(new Date(r.endedAt))===dk),'已清空這天');
+function add(cat,min,note='',src='quick',end=new Date()){recs.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),category:cat,durationMin:min,startedAt:new Date(end-min*6e4).toISOString(),endedAt:end.toISOString(),note,createdAt:new Date().toISOString(),source:src});save()}
+function theme(){const r=document.documentElement;cfg.theme==='system'?r.removeAttribute('data-theme'):r.dataset.theme=cfg.theme}
+const tile=(k,m,plus)=>{const g=plus&&CATS[k].g;return `<div class="tile" style="--c:${CATS[k].c}"><div style="flex:1"><b>${CATS[k].i} ${CATS[k].t}</b><small>${m}${g?' / '+g:''} 分鐘</small>${g?`<div class="pb"><i style="width:${Math.min(100,m/g*100)}%"></i></div>`:''}</div>${plus?`<button class="plus" onclick="qadd('${k}')">⊕</button>`:''}</div>`};
+function qadd(k){add(k,15);const r=recs[recs.length-1];render();toast(CATS[k].t+' +15 分鐘',()=>{recs=recs.filter(x=>x!==r);save();render()})}
+
+function home(){
+  const now=new Date(), t=recs.filter(r=>ymd(new Date(r.endedAt))===ymd(now)), tm=sum(t), C=2*Math.PI*78;
+  const days=new Set(recs.map(r=>ymd(new Date(r.endedAt))));
+  let n=0,d=sod(now); if(!days.has(ymd(d)))d.setDate(d.getDate()-1); while(days.has(ymd(d))){n++;d.setDate(d.getDate()-1)}
+  const h=now.getHours(), dots=[6,5,4,3,2,1,0].map(i=>{const x=sod(now);x.setDate(x.getDate()-i);return `<div><span class="dot ${days.has(ymd(x))?'on':''}"></span>${DN[x.getDay()]}</div>`}).join('');
+  return `<div class="hello"><span style="font-size:28px">🌱</span><div><b>${h<12?'早安！':h<18?'午安！':'晚安！'}</b><small>今天也來累積一點成長吧！</small></div></div>
+  <div>📅 ${fmtD(now)}</div>
+  <div class="ring"><svg width="180" height="180"><circle cx="90" cy="90" r="78" fill="none" stroke="#6B8F5A26" stroke-width="14"/><circle cx="90" cy="90" r="78" fill="none" stroke="#6B8F5A" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-Math.min(1,tm/cfg.goal))}"/></svg>
+  <div class="t"><small>今日進度</small><div><big>${tm}</big> 分鐘</div><small>目標 ${cfg.goal} 分鐘</small></div></div>
+  <div class="grid2">${K.map(k=>tile(k,sum(t,k),1)).join('')}</div>
+  <div class="card pad"><div style="display:flex;justify-content:space-between"><b>🔥 連續紀錄</b><small>連續 ${n} 天</small></div><div class="dots">${dots}</div></div>`+(t.length?`<div class="gh"><span>今日紀錄</span><span>點一下可編輯</span></div><div class="card">${[...t].sort((a,b)=>b.endedAt.localeCompare(a.endedAt)).map(rowH).join('')}</div>`:'');
+}
+
+function week(){
+  const now=new Date(), s=sod(now); s.setDate(s.getDate()-((now.getDay()+6)%7)+off*7);
+  const e=new Date(s); e.setDate(e.getDate()+7);
+  const w=recs.filter(r=>{const d=new Date(r.endedAt);return d>=s&&d<e}), tot=sum(w);
+  const vals=[0,1,2,3,4,5,6].map(i=>{const x=new Date(s);x.setDate(x.getDate()+i);return sum(w.filter(r=>ymd(new Date(r.endedAt))===ymd(x)))}), mx=Math.max(120,...vals);
+  const e6=new Date(s); e6.setDate(e6.getDate()+6), f=d=>`${d.getMonth()+1}月${d.getDate()}日`;
+  let acc=0; const grad=tot?K.map(k=>{const a=acc,b=acc+sum(w,k)/tot*100;acc=b;return `${CATS[k].c} ${a}% ${b}%`}).join(','):'#9993 0 100%';
+  const sorted=[...K].sort((a,b)=>sum(w,b)-sum(w,a));
+  const tip=tot?`本週最多投入：${CATS[sorted[0]].t}\n下週建議：先增加${CATS[sorted[sorted.length-1]].t} 10 分鐘`:'本週還沒有紀錄，從 5 分鐘開始吧。';
+  return `<div class="wk"><button onclick="off--;render()">‹</button>${f(s)} – ${f(e6)}<button onclick="off++;render()" ${off>=0?'disabled style="opacity:.2"':''}>›</button></div>
+  <small>每日投入（分鐘）</small><div class="bars">${vals.map((v,i)=>`<div><i style="height:${v/mx*100}%"></i>${'一二三四五六日'[i]}</div>`).join('')}</div>
+  <div class="donut"><div class="dn" style="background:conic-gradient(${grad})"><div>本週總計<b>${tot}</b>分鐘</div></div>
+  <div class="lg">${K.map(k=>`<div><i style="background:${CATS[k].c}"></i>${CATS[k].t} ${sum(w,k)} 分鐘（${tot?Math.round(sum(w,k)/tot*100):0}%）</div>`).join('')}</div></div>
+  <div class="grid2">${K.map(k=>tile(k,sum(w,k),0)).join('')}</div><div class="tip">💡 ${tip}</div>`;
+}
+
+function stats(){return `<h1>統計</h1><div class="seg" style="margin-bottom:12px">${[['week','週'],['month','月'],['year','年']].map(([v,l])=>`<button style="flex:1" class="${sv===v?'on':''}" onclick="sv='${v}';render()">${l}</button>`).join('')}</div>`+{week,month,year}[sv]()}
+function month(){const now=new Date(),s=new Date(now.getFullYear(),now.getMonth()+moff,1),e=new Date(s.getFullYear(),s.getMonth()+1,1),dim=new Date(s.getFullYear(),s.getMonth()+1,0).getDate(),lead=(s.getDay()+6)%7;
+  const w=recs.filter(r=>{const d=new Date(r.endedAt);return d>=s&&d<e}),by={};w.forEach(r=>{const k=new Date(r.endedAt).getDate();by[k]=(by[k]||0)+r.durationMin});
+  let c='一二三四五六日'.split('').map(x=>`<small class="c">${x}</small>`).join('')+'<span></span>'.repeat(lead);
+  for(let d=1;d<=dim;d++){const v=by[d]||0;c+=`<div class="hm" style="${v?`background:color-mix(in srgb,var(--g) ${Math.min(100,25+v/cfg.goal*60)}%,transparent)`:''}">${d}${v?`<small>${v}</small>`:''}</div>`}
+  return `<div class="wk"><button onclick="moff--;render()">‹</button>${s.getFullYear()}年${s.getMonth()+1}月<button onclick="moff++;render()" ${moff>=0?'disabled style="opacity:.2"':''}>›</button></div><div class="mg">${c}</div><div class="card pad" style="margin-top:12px"><b>本月 ${sum(w)} 分鐘</b><small>${Object.keys(by).length} 天有紀錄</small><div class="lg">${K.map(k=>`<div><i style="background:${CATS[k].c}"></i>${CATS[k].t} ${sum(w,k)} 分鐘</div>`).join('')}</div></div>`}
+function year(){const y=new Date().getFullYear()+yoff,ys=recs.filter(r=>new Date(r.endedAt).getFullYear()===y),by={};let best=0;ys.forEach(r=>{const d=new Date(r.endedAt),k=d.getMonth()+'-'+d.getDate();by[k]=(by[k]||0)+r.durationMin;best=Math.max(best,by[k])});
+  const j=new Date(y,0,1),n=Math.round((new Date(y+1,0,1)-j)/864e5);let c='<i class="hy" style="visibility:hidden"></i>'.repeat((j.getDay()+6)%7);
+  for(let i=0;i<n;i++){const d=new Date(y,0,1+i),v=by[d.getMonth()+'-'+d.getDate()]||0;c+=`<i class="hy" title="${d.getMonth()+1}/${d.getDate()} ${v} 分鐘" style="${v?`background:color-mix(in srgb,var(--g) ${Math.min(100,25+v/cfg.goal*75)}%,transparent)`:''}"></i>`}
+  return `<div class="wk"><button onclick="yoff--;render()">‹</button>${y} 年<button onclick="yoff++;render()" ${yoff>=0?'disabled style="opacity:.2"':''}>›</button></div><div class="yg">${c}</div><div class="card pad" style="margin-top:12px"><b>全年 ${sum(ys)} 分鐘</b><small>${Object.keys(by).length} 天有紀錄，單日最高 ${best} 分鐘</small><div class="lg">${K.map(k=>`<div><i style="background:${CATS[k].c}"></i>${CATS[k].t} ${sum(ys,k)} 分鐘</div>`).join('')}</div></div>`}
+function listBody(){
+  const f=recs.filter(r=>(!lf||r.category===lf)&&(!lq||(r.note||'').includes(lq))).sort((a,b)=>b.endedAt.localeCompare(a.endedAt)), g={};
+  f.forEach(r=>(g[ymd(new Date(r.endedAt))]??=[]).push(r));
+  return Object.values(g).map(a=>`<div class="gh"><span>${fmtD(new Date(a[0].endedAt))}</span><span>共 ${a.length} 筆 · ${sum(a)} 分鐘<button class="x" onclick="delDay('${ymd(new Date(a[0].endedAt))}')">清空</button></span></div><div class="card">${dayBody(a)}</div>`).join('')||'<p class="sub c">還沒有紀錄</p>';
+}
+function list(){
+  return `<h1>紀錄列表</h1><div style="display:flex;gap:8px"><input placeholder="搜尋備註⋯" value="${esc(lq)}" oninput="lq=this.value;$('lb').innerHTML=listBody()"><button class="chip on" style="flex:none" onclick="openEdit()">＋補登</button></div>
+  <div class="chips"><button class="chip ${!lf?'on':''}" onclick="lf=null;render()">全部</button>${K.map(k=>`<button class="chip ${lf===k?'on':''}" style="--c:${CATS[k].c}" onclick="lf='${k}';render()">${CATS[k].t}</button>`).join('')}</div><div style="text-align:right"><button class="x" onclick="colAll(1)">全部收合</button><button class="x" onclick="colAll(0)">全部展開</button></div><div id="lb">${listBody()}</div>`;
+}
+
+function set(){
+  return `<h1>設定</h1><div class="gh"><span>目標與外觀</span></div><div class="card">
+  <div class="set"><span>每日目標</span><span><button class="chip" onclick="goal(-15)">－</button> ${cfg.goal} 分鐘 <button class="chip" onclick="goal(15)">＋</button></span></div>
+  <div class="set"><span>主題</span><div class="seg">${[['light','淺色'],['dark','深色'],['system','跟隨系統']].map(([v,l])=>`<button class="${cfg.theme===v?'on':''}" onclick="cfg.theme='${v}';save();theme();render()">${l}</button>`).join('')}</div></div></div>
+  <div class="gh"><span>類別</span></div><div class="card"><div class="set" onclick="openCats('')">管理類別<span class="sub">›</span></div></div><div class="gh"><span>匯出與備份</span></div><div class="card">
+  <div class="set" onclick="exp('csv')">匯出 CSV<span class="sub">›</span></div><div class="set" onclick="exp('json')">匯出 JSON<span class="sub">›</span></div><div class="set" onclick="imp()">匯入 JSON<span class="sub">›</span></div></div>
+  <div class="card"><div class="set" style="color:#d9534f" onclick="clearAll()">清空所有紀錄</div></div><div class="tip" style="margin-bottom:12px">📲 加入主畫面：用 Safari 點分享按鈕，選「加入主畫面」，就能全螢幕開啟。</div><div class="tip" style="background:#6B8F5A24">ℹ️ 資料僅存在這個瀏覽器的本機儲存空間，不會上傳雲端。</div>`;
+}
+function goal(n){cfg.goal=Math.max(15,Math.min(480,cfg.goal+n));save();render()}
+
+function render(){
+  $('main').innerHTML={home,week:stats,list,set}[tab]();
+  $('nav').innerHTML=[['home','🏠','首頁'],['week','📊','統計'],['list','📋','紀錄'],['set','⚙️','設定']].map(([k,i,l])=>`<button class="${tab===k?'on':''}" onclick="tab='${k}';render();scrollTo(0,0)"><span>${i}</span>${l}</button>`).join('');
+  $('fab').style.display=tab==='home'?'block':'none';const yg=document.querySelector('.yg');if(yg)yg.scrollLeft=yg.scrollWidth;
+}
+function openSheet(h){$('panel').innerHTML=h;$('sheet').classList.add('show')}
+function closeSheet(){$('sheet').classList.remove('show')}
+
+function openQuick(keep){if(!keep)q={cat:'reading',min:15,note:''};
+  openSheet(`<h3>快速紀錄</h3><h4>① 選擇活動類別</h4><div class="g2">${K.map(k=>`<button class="chip ${q.cat===k?'on':''}" style="--c:${CATS[k].c}" onclick="q.cat='${k}';openQuick(1)">${CATS[k].i} ${CATS[k].t}</button>`).join('')}<button class="chip" onclick="openCats('q')">＋ 新增類別</button></div>
+  <h4>② 選擇時長</h4><div class="g3">${[5,10,15,25,45,60].map(m=>`<button class="chip ${q.min===m?'on':''}" onclick="q.min=${m};openQuick(1)">${m} 分鐘</button>`).join('')}</div>
+  <h4>備註（可不填）</h4><input placeholder="可不填" value="${esc(q.note)}" oninput="q.note=this.value">
+  <button class="btn" onclick="closeSheet();startTimer(q.cat)">▶ 現在開始計時</button><button class="btn p" onclick="add(q.cat,q.min,q.note);closeSheet();render();toast('已記錄')">✓ 直接記錄完成</button>`)}
+
+const lds=d=>new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+function openEdit(id){const r=recs.find(x=>x.id===id),e=r?new Date(r.endedAt):new Date();
+  ed={id:id||null,cat:r?r.category:K[0],min:r?r.durationMin:15,d:lds(e),t2:fmtT(e),t1:fmtT(r?new Date(r.startedAt):new Date(e-9e5)),mode:'dur',note:r?r.note:''};edSheet()}
+function setDay(n){const d=new Date();d.setDate(d.getDate()-n);ed.d=lds(d);edSheet()}
+function edSheet(){openSheet(`<h3>${ed.id?'編輯紀錄':'手動補登'}</h3><div class="g2">${K.map(k=>`<button class="chip ${ed.cat===k?'on':''}" style="--c:${CATS[k].c}" onclick="ed.cat='${k}';edSheet()">${CATS[k].i} ${CATS[k].t}</button>`).join('')}<button class="chip" onclick="openCats('e')">＋ 新增類別</button></div>
+  <h4>日期</h4><div class="g3">${[['今天',0],['昨天',1],['前天',2]].map(([l,n])=>`<button class="chip" onclick="setDay(${n})">${l}</button>`).join('')}</div><input style="margin-top:8px" type="date" value="${ed.d}" max="${lds(new Date())}" oninput="ed.d=this.value">
+  <div class="seg" style="margin-top:14px">${[['dur','結束時間＋時長'],['range','起訖時間']].map(([v,l])=>`<button style="flex:1" class="${ed.mode===v?'on':''}" onclick="ed.mode='${v}';edSheet()">${l}</button>`).join('')}</div>
+  ${ed.mode==='dur'?`<h4>結束時間</h4><input type="time" value="${ed.t2}" oninput="ed.t2=this.value"><h4>時長（分鐘）</h4><input type="number" min="1" max="720" value="${ed.min}" oninput="ed.min=+this.value">`:`<div class="g2"><div><h4>開始</h4><input type="time" value="${ed.t1}" oninput="ed.t1=this.value"></div><div><h4>結束</h4><input type="time" value="${ed.t2}" oninput="ed.t2=this.value"></div></div>`}
+  <h4>備註</h4><input value="${esc(ed.note)}" oninput="ed.note=this.value"><button class="btn p" onclick="saveEd()">儲存</button>${ed.id?`<button class="btn d" onclick="closeSheet();delRec(ed.id)">刪除</button>`:''}`)}
+function saveEd(){const end=new Date(ed.d+'T'+ed.t2);if(isNaN(end))return toast('時間格式不正確');let m=Math.max(1,Math.round(ed.min)||1);
+  if(ed.mode==='range'){let st0=new Date(ed.d+'T'+ed.t1);if(isNaN(st0))return toast('時間格式不正確');if(st0>=end)st0=new Date(st0-864e5);m=Math.max(1,Math.round((end-st0)/6e4))}
+  if(ed.id){const r=recs.find(x=>x.id===ed.id);Object.assign(r,{category:ed.cat,durationMin:m,endedAt:end.toISOString(),startedAt:new Date(end-m*6e4).toISOString(),note:ed.note})}else add(ed.cat,m,ed.note,'manual',end);
+  save();closeSheet();render()}
+function saveT(){st.set('xp_timer',T?JSON.stringify({cat:T.cat,acc:T.acc,res:T.res}):'')}
+function startTimer(cat){T={cat,acc:0,res:Date.now()};saveT();drawTimer();T.iv=setInterval(tick,500)}
+const el=()=>Math.floor((T.acc+(T.res?Date.now()-T.res:0))/1000);
+function tick(){const s=el();$('tm').textContent=p2(s/3600|0)+':'+p2(s%3600/60|0)+':'+p2(s%60)}
+function drawTimer(){const c=CATS[T.cat];$('timer').className='show';$('timer').innerHTML=`<div class="ic" style="--c:${c.c};width:80px;height:80px;font-size:36px">${c.i}</div><b style="font-size:22px">${c.t}</b><div class="big" id="tm">00:00:00</div><span class="chip on">${T.res?'計時中':'已暫停'}</span>
+  <button class="pp" onclick="tpause()">${T.res?'❚❚':'▶'}</button><div style="display:flex;gap:60px;margin-top:20px"><button class="rb" onclick="tend(0)">✕</button><button class="rb" onclick="tend(1)">✓</button></div>`;tick()}
+function tpause(){if(T.res){T.acc+=Date.now()-T.res;T.res=0}else T.res=Date.now();saveT();drawTimer()}
+function tend(ok){clearInterval(T.iv);if(ok)add(T.cat,Math.max(1,Math.round(el()/60)),'','timer');T=null;saveT();$('timer').className='';render();if(ok)toast('已記錄')}
+
+const rowH=r=>`<div class="row" onclick="openEdit('${r.id}')"><span class="ic" style="--c:${CATS[r.category].c}">${CATS[r.category].i}</span><div><b>${CATS[r.category].t}　${r.durationMin} 分鐘</b>${r.note?`<small>${esc(r.note)}</small>`:''}</div><small>${fmtT(new Date(r.endedAt))}</small><button class="x" onclick="event.stopPropagation();delRec('${r.id}')">🗑</button></div>`;
+function dayBody(a){const dk=ymd(new Date(a[0].endedAt));return K.filter(k=>a.some(r=>r.category===k)).map(k=>{const b=a.filter(r=>r.category===k),key=dk+k,c=cl[key];return `<div class="cg" onclick="cl['${key}']=!cl['${key}'];render()"><span>${c?'▸':'▾'} ${CATS[k].i} ${CATS[k].t}</span><small>${b.length} 筆 · ${sum(b)} 分鐘</small></div>`+(c?'':b.map(rowH).join(''))}).join('')}
+function colAll(v){recs.forEach(r=>K.forEach(k=>cl[ymd(new Date(r.endedAt))+k]=!!v));render()}
+const SW=['#5B9BD5','#E07B53','#4FB3A9','#C97B9B','#8C8C3E','#7A8BA8','#6B8F5A','#E0A458'];
+function openCats(f){if(f!==undefined)cf=f;openSheet(`<h3>管理類別</h3><div class="card">${K.map((k,i)=>`<div class="set"><span>${CATS[k].i} ${CATS[k].t}${CATS[k].g?`<small>每日目標 ${CATS[k].g} 分鐘</small>`:''}</span><span><button class="x" onclick="mvCat('${k}',-1)" ${i?'':'disabled'}>↑</button><button class="x" onclick="mvCat('${k}',1)" ${i<K.length-1?'':'disabled'}>↓</button><button class="x" onclick="editCat('${k}')">✎</button>${BASE.includes(k)?'':`<button class="x" onclick="delCat('${k}')">🗑</button>`}</span></div>`).join('')}</div>
+  <h4>${eid?'編輯類別':'新增類別'}</h4><div style="display:flex;gap:8px"><input style="width:70px;text-align:center" placeholder="😀" maxlength="4" value="${esc(ni)}" oninput="ni=this.value"><input placeholder="類別名稱" maxlength="8" value="${esc(nn)}" oninput="nn=this.value"></div>
+  <div class="sw">${SW.map(c=>`<button class="${nc===c?'on':''}" style="background:${c}" onclick="nc='${c}';openCats()"></button>`).join('')}<input type="color" value="${nc}" style="width:34px;height:34px;padding:0;border:0" onchange="nc=this.value;openCats()"></div>
+  <h4>每日目標（分鐘，0 為不設定）</h4><input type="number" min="0" max="480" value="${ng}" oninput="ng=+this.value||0">
+  <button class="btn p" onclick="addCat()">${eid?'儲存修改':'新增'}</button>${eid?`<button class="btn" onclick="eid='';nn=ni='';ng=0;openCats()">取消編輯</button>`:''}<button class="btn" onclick="catDone()">完成</button>`)}
+function addCat(){const t=nn.trim();if(!t)return toast('請輸入名稱');if(K.some(k=>k!==eid&&CATS[k].t===t))return toast('已有相同名稱');
+  const o={t,i:ni.trim()||'🏷️',c:nc,g:Math.max(0,Math.min(480,Math.round(ng)||0))};
+  if(eid)CATS[eid]=o;else CATS['c'+Date.now().toString(36)]=o;
+  K=Object.keys(CATS);st.set('xp_cats',JSON.stringify(CATS));eid='';nn=ni='';ng=0;openCats()}
+function editCat(k){eid=k;nn=CATS[k].t;ni=CATS[k].i;nc=CATS[k].c;ng=CATS[k].g||0;openCats()}
+function mvCat(k,d){const a=[...K],i=a.indexOf(k),j=i+d;if(j<0||j>=a.length)return;[a[i],a[j]]=[a[j],a[i]];const o={};a.forEach(x=>o[x]=CATS[x]);CATS=o;K=a;st.set('xp_cats',JSON.stringify(CATS));openCats()}
+function delCat(k){if(recs.some(r=>r.category===k))return toast('此類別已有紀錄，無法刪除');delete CATS[k];K=Object.keys(CATS);if(q.cat===k)q.cat='reading';if(ed.cat===k)ed.cat='reading';if(lf===k)lf=null;st.set('xp_cats',JSON.stringify(custom()));openCats()}
+function catDone(){render();cf==='q'?openQuick(1):cf==='e'?edSheet():(closeSheet(),render())}
+function clearAll(){if(!recs.length)return toast('目前沒有紀錄');openSheet(`<h3>清空所有紀錄</h3><p class="c sub">將刪除全部 ${recs.length} 筆紀錄，建議先匯出備份。</p><button class="btn d" onclick="closeSheet();delRecs([...recs],'已清空全部紀錄')">確定清空</button><button class="btn" onclick="exp('json')">先匯出備份</button><button class="btn" onclick="closeSheet()">取消</button>`)}
+let XT='',XF='';
+function exp(type){const e=[...recs].sort((a,b)=>a.endedAt.localeCompare(b.endedAt));
+  XT=type==='json'?JSON.stringify(e,null,2):'\uFEFFid,category,durationMin,startedAt,endedAt,note,createdAt,source\n'+e.map(r=>[r.id,r.category,r.durationMin,r.startedAt,r.endedAt,'"'+(r.note||'').replace(/"/g,'""')+'"',r.createdAt,r.source].join(',')).join('\n');
+  XF='xptime-'+lds(new Date())+'.'+type;
+  openSheet(`<h3>匯出 ${type.toUpperCase()}</h3><button class="btn p" onclick="dl()">下載檔案</button><button class="btn" onclick="cp()">複製全部內容</button><textarea id="ta" readonly style="height:120px;margin-top:10px">${esc(XT)}</textarea><button class="btn" onclick="closeSheet()">關閉</button>`)}
+async function dl(){try{const b=new Blob([XT],{type:'text/plain'});if(window.claude){const d=await claude.use('downloads');if(!d)return toast('此環境無法下載，請改用複製');await d.save({filename:XF,data:b});toast('已儲存')}else{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=XF;a.click();toast('已下載')}}catch(e){if(!e||e.code!=='declined')toast('下載失敗，請改用複製')}}
+function cp(){const t=$('ta');t.select();try{navigator.clipboard.writeText(t.value)}catch(e){document.execCommand('copy')}toast('已複製')}
+function imp(){openSheet(`<h3>匯入 JSON</h3><textarea id="ta" placeholder="貼上先前匯出的 JSON 內容"></textarea><button class="btn p" onclick="doImp()">匯入</button><button class="btn" onclick="closeSheet()">取消</button>`)}
+function doImp(){try{const a=JSON.parse($('ta').value), ids=new Set(recs.map(r=>r.id));let n=0;
+  a.forEach(r=>{if(r.id&&/^[\w\u4e00-\u9fff-]+$/.test(r.category)&&r.durationMin&&r.endedAt&&!ids.has(r.id)){if(!CATS[r.category]){CATS[r.category]={t:r.category,i:'🏷️',c:'#7A8BA8'};K=Object.keys(CATS);st.set('xp_cats',JSON.stringify(custom()))}recs.push({note:'',source:'import',createdAt:r.endedAt,startedAt:r.endedAt,...r});n++}});
+  save();closeSheet();render();toast(`已匯入 ${n} 筆`)}catch(e){toast('JSON 格式不正確')}}
+
+addEventListener('contextmenu',e=>e.preventDefault());
+addEventListener('dragstart',e=>e.preventDefault());
+addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(e.key==='F12'||((e.ctrlKey||e.metaKey)&&(['s','u','p','i','j'].includes(k)||(e.shiftKey&&['i','j','c'].includes(k)))))e.preventDefault()});
+theme();render();
+try{const sv0=JSON.parse(st.get('xp_timer')||'null');if(sv0&&CATS[sv0.cat]){T=sv0;drawTimer();T.iv=setInterval(tick,500)}}catch(e){}
+/*ICON*/(()=>{try{const c=document.createElement('canvas');c.width=c.height=180;const x=c.getContext('2d');x.fillStyle='#6B8F5A';x.fillRect(0,0,180,180);x.font='100px serif';x.textAlign='center';x.textBaseline='middle';x.fillText('🌱',90,98);const l=document.createElement('link');l.rel='apple-touch-icon';l.href=c.toDataURL();document.head.append(l)}catch(e){}})();/*END*/
+</script>
+</body>
+</html>
